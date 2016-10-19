@@ -26,7 +26,7 @@ public class Grid {
         System.out.println();
         for(int i=0; i<9; i++) {
             for(int j=0; j<9; j++) {
-                System.out.print(grid[i][j].c +""+ grid[i][j].c + " ");
+                System.out.print(grid[i][j].c);
             }
             System.out.println();
         }
@@ -35,6 +35,7 @@ public class Grid {
 
 
     public boolean checkSolution() {
+        printGrid();
         // Check Rows for duplicates
         Set found = new HashSet();
         for(int i=0; i<9; i++) {
@@ -57,21 +58,22 @@ public class Grid {
             }
         }
         // Check 3x3 groups for duplicates
-        /*
+
         for(int k=0; k<9; k++) {
             found.clear();
             for(int i = 0; i<3; i++) {
                 for(int j = 0; j<3; j++) {
-                    if(grid[i+3*k/3][j+k%3*3].c == '_')
+                    if(grid[i+3*(int)Math.floor(k/3)][j+k%3*3].c == '_')
                         continue;
-                    else if(!found.add(grid[i+3*k/3][j+k%3*3].c))
+                    else if(!found.add(grid[i+3*(int)Math.floor(k/3)][j+k%3*3].c))
                         return false;
                 }
             }
         }
-        */
+
         return true;
     }
+
 
     public boolean checkMove(int x, int y, String word) {
 
@@ -86,6 +88,30 @@ public class Grid {
             placeVertically(x, y, word);
             if(!checkSolution())
                 removeVertical(x, y, word);
+            else
+                return true;
+        }
+        return false;
+    }
+
+    public boolean tryVertical(int x, int y, String word) {
+
+        if(checkVertical(x, y, word)) {
+            placeVertically(x, y, word);
+            if(!checkSolution())
+                removeVertical(x, y, word);
+            else
+                return true;
+        }
+        return false;
+    }
+
+    public boolean tryHorizontal(int x, int y, String word) {
+
+        if(checkHorizontal(x, y, word)) {
+            placeHorizontally(x, y, word);
+            if(!checkSolution())
+                removeHorizontal(x, y, word);
             else
                 return true;
         }
@@ -134,15 +160,19 @@ public class Grid {
         }
     }
 
-    public void removeHorizontal(int x, int y, String word) {
+    public void removeHorizontal(int row, int col, String word) {
         for(int j=0; j<word.length(); j++) {
-            grid[y][j+x].c = '_';
+            System.out.println("horizontal row:"+row +" j:"+j+" col:"+col);
+            if(j+col < 9)
+                grid[row][j+col].c = '_';
         }
     }
 
-    public void removeVertical(int x, int y, String word) {
+    public void removeVertical(int row, int col, String word) {
         for(int i=0; i<word.length(); i++) {
-            grid[y+i][x].c = '_';
+            System.out.println("vertical row:"+row +" i:"+i+" col:"+col);
+            if(row+i < 9)
+                grid[row+i][col].c = '_';
         }
     }
 }
