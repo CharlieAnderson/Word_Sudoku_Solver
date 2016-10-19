@@ -13,7 +13,7 @@ public class CellGroup {
         this.group = new Cell[3][3];
         for(int i=0; i<3; i++) {
             for(int j=0; j<3; j++) {
-                group[i][j] = new Cell(j, i, '_');
+                this.group[i][j] = new Cell(j, i, '_');
             }
         }
     }
