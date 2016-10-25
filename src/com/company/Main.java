@@ -7,8 +7,4 @@ public class Main {
         WordSudoku sudoku = new WordSudoku();
         sudoku.initGame();
     }
-
-    public void lol(){
-
-    }
 }

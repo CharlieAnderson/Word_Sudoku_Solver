@@ -3,6 +3,10 @@ package com.company;
 /**
  * Created by charlesanderson on 10/17/16.
  */
+
+// NOT USED !!!
+
+
 public class CellGroup {
     public Cell[][] group;
     public int x,y;
